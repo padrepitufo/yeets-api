@@ -10,6 +10,8 @@ python = "^3.10"
 fastapi = "^0.73.0"
 uvicorn = {extras = ["standard"], version = "^0.17.4"}
 typer = "^0.4.0"
+tortoise-orm = {extras = ["aiomysql"], version = "^0.18.1"}
+orjson = "^3.6.6"
 
 [tool.poetry.scripts]
 jane = "cli:app"

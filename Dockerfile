@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/opt/srv" \
     VENV_PATH="/opt/srv/.venv"
 ENV PYTHONPATH="$PYSETUP_PATH/app"
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PYSETUP_PATH/scripts:$PATH"
 
 FROM base AS test
 RUN echo "running TEST commands"
@@ -35,10 +35,12 @@ COPY --from=builder $POETRY_HOME $POETRY_HOME
 COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
 
 WORKDIR $PYSETUP_PATH
-COPY ./app ./app
+COPY app ./app
+COPY scripts ./scripts
+RUN chmod +x ./scripts/*
 # Install CLI globally
 # note, editable does not work
 RUN pip install .
 
 WORKDIR $PYTHONPATH
-CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "routes:app"]
+CMD [ "entrypoint.sh" ]

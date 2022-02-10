@@ -1,15 +1,13 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from services.star.routes import router as star_router
+from services.tact.routes import router as tact_router
+from services.yeep.routes import router as yeep_router
+from services.yeet.routes import router as yeet_router
 
-app = FastAPI()
+from utils.server import serve
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+serve.include_router(star_router)
+serve.include_router(tact_router)
+serve.include_router(yeep_router)
+serve.include_router(yeet_router)

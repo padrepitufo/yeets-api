@@ -16,8 +16,16 @@ docker build . -t api --target development
 Upon building the api is immediately available like so
 
 ```commandLine
-docker run -it api
+docker-compose up
+# and then flushed with
+# docker-compose down
+# docker volume rm yeets-api_api_db_vol
+# docker-commpose build
+# docker-compose up
 ```
+
+You may access the API documentation from the swagger/open-api docs
+that FastAPI generated probably here `http://localhost:8081/docs`
 
 ## CLI commands
 
@@ -30,5 +38,5 @@ docker run -it api jane <commands>
 ## Running with local docker
 
 ```commandLine
-docker run -it -p 127.0.0.1:8080:8000/tcp api
+docker run -it -p 127.0.0.1:8081:8000/tcp api
 ```
