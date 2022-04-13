@@ -40,3 +40,16 @@ docker run -it api jane <commands>
 ```commandLine
 docker run -it -p 127.0.0.1:8081:8000/tcp api
 ```
+
+## Deploy to Prod
+
+```
+kubectl create ns develop
+kubectl apply -f manifests/
+```
+
+## Port Forward
+
+```
+k -n develop port-forward deploy/yeetsapi 7070:8000
+```

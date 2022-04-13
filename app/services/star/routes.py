@@ -30,11 +30,17 @@ async def stars(yeet_id: Optional[str] = None):
 
 @router.post("/yeet/{yeet_id}/booooooo", response_model=Serializer)
 async def stars_decrement(yeet_id: str, item: Validator):
-    data = await models.decrement(yeet_id=yeet_id, giver_id=item.yeep_id)
+    try:
+        data = await models.decrement(yeet_id=yeet_id, giver_id=item.yeep_id)
+    except RuntimeError as e:
+        return Serializer(data=[], message=str(e), success=False)
     return Serializer(data=data)
 
 
 @router.post("/yeet/{yeet_id}/yaaaaaay", response_model=Serializer)
 async def stars_increment(yeet_id: str, item: Validator):
-    data = await models.increment(yeet_id=yeet_id, giver_id=item.yeep_id)
+    try:
+        data = await models.increment(yeet_id=yeet_id, giver_id=item.yeep_id)
+    except RuntimeError as e:
+        return Serializer(data=[], message=str(e), success=False)
     return Serializer(data=data)

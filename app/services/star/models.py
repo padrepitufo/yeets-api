@@ -30,9 +30,14 @@ async def decrement(yeet_id, giver_id) -> list["Star"]:
 async def _add_rating(yeet_id, giver_id, rating):
     yeet = await Yeet.get(id=yeet_id)
     yeep = await Yeep.get(id=giver_id)
+
+    exists = await Star.filter(giver=yeep, yeet=yeet).first()
+    if exists:
+        raise RuntimeError(f"yeeter {yeep.sign} has already opined on {yeet.title}")
+
     await Star.create(
         yeet=yeet,
-        yeep=yeep,
+        giver=yeep,
         rating=rating,
     )
 

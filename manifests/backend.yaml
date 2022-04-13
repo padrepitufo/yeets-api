@@ -4,14 +4,39 @@ metadata:
   name: yeetsapi
   namespace: develop
 spec:
-  replicas: 1
+  selector:
+    matchLabels:
+      app: yeetsapi
   template:
     metadata:
       labels:
         app: yeetsapi
     spec:
       containers:
-        - name: yeetsapi
-          image: mjhea0/flask-kubernetes:latest
-          ports:
-            - containerPort: 5000
+      - name: yeetsapi
+        image: marcstreeter/yeets:latest
+        envFrom:
+        - configMapRef:
+            name: database-config
+        - configMapRef:
+            name: yeetsapi
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yeetsapi
+  namespace: develop
+spec:
+  selector:
+    app: yeetsapi
+  ports:
+  - port: 80
+    targetPort: 8000
+

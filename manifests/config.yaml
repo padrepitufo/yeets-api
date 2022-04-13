@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+  namespace: develop
+data:
+  DATABASE_HOST: "yeetsdb"
+  DATABASE_NAME: "yeets"
+  DATABASE_PASS: "super-ultra-safe-password"
+  DATABASE_USER: "yeets"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yeetsapi
+  namespace: develop
+data:
+  ENVIRONMENT: "development"
+  LOG_LEVEL: "ERROR"
+  WAIT_FOR_DB: "yes"

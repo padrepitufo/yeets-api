@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yeetsdb
+  namespace: develop
+spec:
+  selector:
+    matchLabels:
+      app: yeetsdb
+  template:
+    metadata:
+      labels:
+        app: yeetsdb
+    spec:
+      containers:
+      - name: yeetsapi
+        image: mariadb:10.5.8-focal
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: DATABASE_NAME
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: DATABASE_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: DATABASE_PASS
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: database-config
+              key: DATABASE_USER
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yeetsdb
+  namespace: develop
+spec:
+  selector:
+    app: yeetsdb
+  ports:
+  - port: 3306
+    targetPort: 3306
