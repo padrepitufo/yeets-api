@@ -63,6 +63,20 @@ class YeepTact(Model):
     
     class Meta:
         unique_together = ("yeep", "tact")
+
+
+class YeepVtar(Model):
+    id = fields.UUIDField(pk=True, default=None)
+    yeep: fields.ForeignKeyNullableRelation[Yeep] = fields.ForeignKeyField(
+        "app.Yeep",
+        on_delete=fields.SET_NULL,
+        null=True,
+    )
+    vtar = fields.ForeignKeyNullableRelation[Yeep] = fields.ForeignKeyField(
+        "app.Vtar",
+        on_delete=fields.SET_NULL,
+        null=True,
+    )
     
 
 
