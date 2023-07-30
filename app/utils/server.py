@@ -15,6 +15,7 @@ logger = logging.getLogger()
 DEBUG = config.DEBUG
 log.setup()
 origins = [
+    "https://kube.watch",
     "https://yeets.me",
     "http://localhost",
     "http://localhost:8080",
