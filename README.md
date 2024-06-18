@@ -1,4 +1,4 @@
-# API
+# YEETS API
 
 Provides API endpoint and also provides CLI interface for yeets. This service
 serves as an interface for the corresponding database.
